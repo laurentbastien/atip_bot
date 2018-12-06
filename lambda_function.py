@@ -58,6 +58,7 @@ def twitter_handler():
     
 
 def lambda_handler(event,context):
+    methodname = lambda_handler.__name__
     try:
         tweepyapi = twitter_handler()
         description,tweetid,source = dynamo_handler()
@@ -74,4 +75,5 @@ def lambda_handler(event,context):
         tweepyapi.update_status(tweettext)
         
     except Exception as error:
+        errormsg = "Error in {}. Error is {}".format(methodname,error)
         print(errormsg)
